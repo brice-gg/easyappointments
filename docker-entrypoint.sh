@@ -16,6 +16,14 @@ createAppSettings() {
         sed -i "s#// \$config\['smtp_port'\] = 25#\$config['smtp_port'] = $SMTP_PORT#g" $PROJECT_DIR/application/config/email.php
     fi
     sed -i "s/url-to-easyappointments-directory/$APP_URL/g" $PROJECT_DIR/config.php
+    if [ "$APP_SCHEME" = "https" ]; then
+        echo "Setting up the url scheme to HTTPS..."
+        sed -i "s/http/$APP_SCHEME/g" $PROJECT_DIR/config.php
+    fi
+    if [ "$APP_LANGUAGE" = "french" ]; then
+        echo "Setting up the application language to FRENCH..."
+        sed -i "s/english/$APP_LANGUAGE/g" $PROJECT_DIR/config.php
+    fi
 
     chown -R www-data $PROJECT_DIR
 }
